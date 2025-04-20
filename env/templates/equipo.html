@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="team-container">
+    <div class="team-header">
+        <h1>Equipo</h1>
+        
+        {% if current_user.cargo == 'administrador' %}
+        <div class="team-actions">
+            <a href="{{ url_for('agregar_usuario') }}" class="btn btn-success">
+                <i class="fas fa-user-plus"></i> Agregar Usuario
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="team-content">
+        <div class="row">
+            {% for usuario in usuarios %}
+            <div class="col-md-4 mb-4">
+                <div class="user-card">
+                    <div class="user-card-header">
+                        {% if current_user.cargo == 'administrador' %}
+                        <a href="{{ url_for('editar_usuario', user_id=usuario.id) }}" class="btn btn-sm btn-primary edit-user-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        {% elif current_user.id == usuario.id %}
+                        <a href="{{ url_for('editar_usuario', user_id=usuario.id) }}" class="btn btn-sm btn-primary edit-user-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="user-card-image">
+                        {% if usuario.imagen %}
+                            <img src="{{ url_for('static', filename=usuario.imagen) }}" alt="Foto de {{ usuario.nombre }}" class="user-image">
+                        {% else %}
+                            <div class="user-image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="user-card-info">
+                        <h3 class="user-name">{{ usuario.nombre }}</h3>
+                        <p class="user-email">{{ usuario.email }}</p>
+                        <div class="user-role">
+                            <span class="badge rounded-pill bg-{{ 'danger' if usuario.cargo == 'administrador' else 'primary' }}">
+                                {{ usuario.cargo | title }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

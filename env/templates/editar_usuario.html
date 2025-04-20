@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h1>Editar Usuario</h1>
+    </div>
+    
+    <div class="form-content">
+        <form method="POST" action="{{ url_for('editar_usuario', user_id=usuario.id) }}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}" required>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    <div class="form-text">Dejar en blanco para mantener la contraseña actual.</div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="cargo" class="form-label">Cargo</label>
+                    <select class="form-select" id="cargo" name="cargo" {% if current_user.cargo != 'administrador' %}disabled{% endif %} required>
+                        <option value="administrador" {% if usuario.cargo == 'administrador' %}selected{% endif %}>Administrador</option>
+                        <option value="analista" {% if usuario.cargo == 'analista' %}selected{% endif %}>Analista</option>
+                        <option value="gerente" {% if usuario.cargo == 'gerente' %}selected{% endif %}>Gerente</option>
+                        <option value="vendedor" {% if usuario.cargo == 'vendedor' %}selected{% endif %}>Vendedor</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label for="imagen" class="form-label">Imagen de Perfil</label>
+                
+                {% if usuario.imagen %}
+                <div class="current-image mb-2">
+                    <img src="{{ url_for('static', filename=usuario.imagen) }}" alt="Imagen actual" class="img-thumbnail" style="max-height: 150px;">
+                    <div class="form-text">Imagen actual</div>
+                </div>
+                {% endif %}
+                
+                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                <div class="form-text">Suba una nueva imagen de perfil para reemplazar la actual (opcional).</div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{{ url_for('equipo') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

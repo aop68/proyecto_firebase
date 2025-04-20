@@ -1,0 +1,30 @@
+# Entorno virtual
+Scripts/
+Include/
+Lib/
+pyvenv.cfg
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de registro
+*.log
+
+# Archivos de entorno
+.env
+
+# Dependencias instaladas
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Archivos temporales
+*.swp
+*~ 

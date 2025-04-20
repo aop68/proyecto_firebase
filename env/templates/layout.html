@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Barra lateral -->
+            <div class="sidebar">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la empresa" class="logo">
+                </div>
+                
+                <div class="user-info">
+                    {% if current_user.imagen %}
+                        <img src="{{ url_for('static', filename=current_user.imagen) }}" alt="Foto de perfil" class="user-img">
+                    {% else %}
+                        <div class="user-img-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                    <div class="user-name">{{ current_user.nombre }}</div>
+                </div>
+                
+                <div class="menu">
+                    <div class="dropdown">
+                        <button class="dropdown-btn" id="dashboardDropdown">
+                            <i class="fas fa-chart-line"></i>
+                            Dashboard
+                            <i class="fa fa-caret-down ml-auto"></i>
+                        </button>
+                        <div class="dropdown-content" id="dashboardDropdownContent">
+                            <a href="{{ url_for('tiempo_real') }}" class="{% if active == 'tiempo_real' %}active{% endif %}">
+                                <i class="fas fa-clock"></i> Tiempo Real
+                            </a>
+                            <a href="{{ url_for('descriptiva') }}" class="{% if active == 'descriptiva' %}active{% endif %}">
+                                <i class="fas fa-chart-bar"></i> Descriptiva
+                            </a>
+                            <a href="{{ url_for('cuota_mercado') }}" class="{% if active == 'cuota_mercado' %}active{% endif %}">
+                                <i class="fas fa-globe"></i> Datos Globales
+                            </a>
+                            <a href="{{ url_for('predictiva') }}" class="{% if active == 'predictiva' %}active{% endif %}">
+                                <i class="fas fa-chart-line"></i> Predictiva
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ url_for('agente') }}" class="menu-item {% if request.path == url_for('agente') %}active{% endif %}">
+                        <i class="fas fa-robot"></i>
+                        Agente
+                    </a>
+                    
+                    <a href="{{ url_for('equipo') }}" class="menu-item {% if request.path == url_for('equipo') %}active{% endif %}">
+                        <i class="fas fa-users"></i>
+                        Equipo
+                    </a>
+                    
+                    <a href="{{ url_for('logout') }}" class="menu-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Contenido principal -->
+            <div class="main-content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
