@@ -370,7 +370,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
     # En desarrollo, usar puerto 80 para acceso web estándar
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
 else:
     # En producción (PythonAnywhere)
     application = app 
