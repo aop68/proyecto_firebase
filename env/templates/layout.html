@@ -19,7 +19,7 @@
                 
                 <div class="user-info">
                     {% if current_user.imagen %}
-                        <img src="{{ url_for('static', filename=current_user.imagen) }}" alt="Foto de perfil" class="user-img">
+                        <img src="{{ url_for('static', filename=current_user.png) }}" alt="Foto de perfil" class="user-img">
                     {% else %}
                         <div class="user-img-placeholder">
                             <i class="fas fa-user"></i>
@@ -41,9 +41,6 @@
                             </a>
                             <a href="{{ url_for('descriptiva') }}" class="{% if active == 'descriptiva' %}active{% endif %}">
                                 <i class="fas fa-chart-bar"></i> Descriptiva
-                            </a>
-                            <a href="{{ url_for('cuota_mercado') }}" class="{% if active == 'cuota_mercado' %}active{% endif %}">
-                                <i class="fas fa-globe"></i> Datos Globales
                             </a>
                             <a href="{{ url_for('predictiva') }}" class="{% if active == 'predictiva' %}active{% endif %}">
                                 <i class="fas fa-chart-line"></i> Predictiva

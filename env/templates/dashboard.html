@@ -8,8 +8,6 @@
                 Dashboard de Tiempo Real
             {% elif active == 'descriptiva' %}
                 Dashboard Descriptivo
-            {% elif active == 'cuota_mercado' %}
-                Dashboard de Datos Globales
             {% elif active == 'predictiva' %}
                 Dashboard Predictivo
             {% endif %}
@@ -30,24 +28,13 @@
                 </iframe>
             {% elif active == 'descriptiva' %}
                 <!-- Iframe para el dashboard descriptivo -->
-                <iframe 
-                    title="Dashboard Descriptivo" 
-                    width="100%" 
-                    height="100%" 
-                    src="https://app.powerbi.com/reportEmbed?reportId=eb672b60-b1e9-4c37-b801-19f3a69ca87b&autoAuth=true&ctid=9156d3bf-d39d-42cb-abf6-b7deca4a0892"
-                    frameborder="0" 
-                    allowFullScreen="true">
-                </iframe>
-            {% elif active == 'cuota_mercado' %}
-                <!-- Iframe para el dashboard de cuota de mercado -->
-                <iframe 
+                 <iframe 
                     title="Dashboard Datos Globales" 
                     width="100%" 
                     height="100%" 
                     src="https://app.powerbi.com/reportEmbed?reportId=e0842259-5a51-4309-b8b6-9e07a31c0f67&autoAuth=true&ctid=9156d3bf-d39d-42cb-abf6-b7deca4a0892" 
                     frameborder="0" 
-                    allowFullScreen="true">
-                </iframe>
+                    allowFullScreen="true"></iframe>
             {% elif active == 'predictiva' %}
                 <!-- Iframe para el dashboard predictivo -->
                 <iframe 
